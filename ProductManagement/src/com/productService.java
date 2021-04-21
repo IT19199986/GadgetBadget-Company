@@ -67,7 +67,7 @@ public class productService {
 	    //Convert the input string to an XML document
 	    Document doc = Jsoup.parse(productData, "", Parser.xmlParser()); 
 	 
-	    //Read the value from the element <itemID>
+	  
 	    String product_ID = doc.select("product_ID").text(); 
 	    String output = productObj.deleteproduct(product_ID); 
 	    return output; 

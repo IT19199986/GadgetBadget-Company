@@ -37,12 +37,13 @@ public class product {
 	    	  return "Error while connecting to the database for inserting.";
 	      } 
 	       // create a prepared statement
-	      String query = " insert into product(`product_ID`,`product_Name`,`Category`,`Serial_No`,`Price`,'Description')"
-	       + " values (?, ?, ?, ?, ?,?)"; 
+	      String query = " insert into product(`product_ID`,`product_Name`,`Category`,`Serial_No`,`Price`,`Description`)"
+
+	       + " values (?, ?, ?, ?, ?, ?)"; 
 	      PreparedStatement preparedStmt = con.prepareStatement(query); 
 	      // binding values
 	   
-	      preparedStmt.setInt(1, 0);
+	      preparedStmt.setString(1, product_ID);
 	      preparedStmt.setString(2, product_Name); 
 	      preparedStmt.setString(3, Category); 
 	      preparedStmt.setString(4, Serial_No); 
@@ -127,10 +128,10 @@ public class product {
 	        	 return "Error while connecting to the database for updating.";
 	         } 
 	         // create a prepared statement
-	         String query = "UPDATE product SET product_Name=?,Category=?,Serial_No=?,Price=?,Description=?  WHERE product_ID=?"; 
+	         String query = "UPDATE product SET product_ID=?,product_Name=?,Category=?,Serial_No=?,Price=?,Description=?  WHERE product_ID=?"; 
 	         PreparedStatement preparedStmt = con.prepareStatement(query); 
 	         // binding values
-             //preparedStmt.setString(1, product_ID); 
+             preparedStmt.setString(1, product_ID); 
 		     preparedStmt.setString(1, product_Name); 
 		     preparedStmt.setString(2, Category); 
 		     preparedStmt.setString(3, Serial_No); 
