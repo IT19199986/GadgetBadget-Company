@@ -10,7 +10,7 @@ public class Order
 		Connection con = null; 
 		try
 		{ 
-			Class.forName("com.mysql.cj.jdbc.Driver"); 
+			Class.forName("com.mysql.jdbc.Driver"); 
 			//
 			//com.mysql.jdbc.Driver
 			//Provide the correct details: DBServer/DBName, username, password 
@@ -34,7 +34,7 @@ public class Order
 				return "Error while connecting to the database for inserting."; 
 			} 
 			// create a prepared statement
-			String query = " insert into order (`OrderID`,`ProductID`,`ProductName`,`Date`,`BuyerName`)"
+			String query = " insert into orders (`OrderID`,`ProductID`,`ProductName`,`Date`,`BuyerName`)"
 						 + " values (?, ?, ?, ?, ?)"; 
 			PreparedStatement preparedStmt = con.prepareStatement(query); 
 			
@@ -75,7 +75,7 @@ public class Order
 					"<th>Buyer Name</th>" +
 					"<th>Update</th><th>Remove</th></tr>"; 
  
-			String query = "select * from order"; 
+			String query = "select * from orders"; 
 			Statement stmt = con.createStatement(); 
 			ResultSet rs = stmt.executeQuery(query); 
 			// iterate through the rows in the result set
@@ -123,7 +123,7 @@ public class Order
 			} 
 			
 			// create a prepared statement
-			String query = "UPDATE order SET ProductID=?,ProductName=?,Date=?,BuyerName=? WHERE OrderID=?"; 
+			String query = "UPDATE orders SET ProductID=?,ProductName=?,Date=?,BuyerName=? WHERE OrderID=?"; 
 					
 			PreparedStatement preparedStmt = con.prepareStatement(query);
 					
@@ -159,7 +159,7 @@ public class Order
 			} 
 			
 			// create a prepared statement
-			String query = "delete from order where OrderID=?"; 
+			String query = "delete from orders where OrderID=?"; 
 			PreparedStatement preparedStmt = con.prepareStatement(query); 
 					
 			// binding values
