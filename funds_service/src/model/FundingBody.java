@@ -2,7 +2,8 @@ package model;
 
 import java.sql.*; 
 
-public class Funds {
+public class FundingBody {
+
 
 	//A common method to connect to the DB
 		 private Connection connect() 
@@ -22,7 +23,7 @@ public class Funds {
 			 return con; 
 		 } 
 		 
-		 public String insertfunds(String ProductId, String ProductName, String FName, String Amount) 
+		 public String insertfundingBody(String FName, String Address, String Email, String Phone) 
 		 { 
 			 String output = ""; 
 			 
@@ -33,18 +34,17 @@ public class Funds {
 				 {return "Error while connecting to the database for inserting."; }
 				 
 				 // create a prepared statement
-				 String query = " insert into funds (`FundID`,`ProductId`,`ProductName`,`FName`,`Amount`)"
+				 String query = " insert into funding_body (`ID`,`FName`,`Address`,`Email`,`Phone`)"
 						 		+ " values (?, ?, ?, ?, ?)"; 
 				 
 				 PreparedStatement preparedStmt = con.prepareStatement(query); 
 				 
 				 // binding values
 				 preparedStmt.setInt(1, 0); 
-				 preparedStmt.setString(2, ProductId); 
-				 preparedStmt.setString(3, ProductName);
-				 preparedStmt.setString(4, FName); 
-				 preparedStmt.setString(5, Amount);
-				 //preparedStmt.setDouble(5, Double.parseDouble(Amount)); 
+				 preparedStmt.setString(2, FName); 
+				 preparedStmt.setString(3, Address);
+				 preparedStmt.setString(4, Email); 
+				 preparedStmt.setString(5, Phone); 
 
 				 
 				 // execute the statement
@@ -55,14 +55,14 @@ public class Funds {
 			  } 
 			  catch (Exception e) 
 			  { 
-				 output = "Error while inserting the funds."; 
+				 output = "Error while inserting the funding body."; 
 				 System.err.println(e.getMessage()); 
 			  } 
 			 
 			  return output; 
 			} 
 		 
-			public String readFunds() 
+			public String readFundingBody() 
 			{ 
 				 String output = ""; 
 				 
@@ -74,35 +74,35 @@ public class Funds {
 					 {return "Error while connecting to the database for reading."; } 
 					 
 					 // Prepare the html table to be displayed
-					 output = "<table border='1'><tr><th>Product Id</th><th>Product Name</th>" +
-							  "<th>Funder's Name</th>" + 
-							  "<th>Amount</th>" +
+					 output = "<table border='1'><tr><th>Funder's Name</th><th>Address</th>" +
+							  "<th>Email</th>" + 
+							  "<th>Phone Number</th>" +
 							  "<th>Update</th><th>Remove</th></tr>"; 
 				 
-					 String query = "select * from funds"; 
+					 String query = "select * from funding_body"; 
 					 Statement stmt = con.createStatement(); 
 					 ResultSet rs = stmt.executeQuery(query); 
 					 
 					 // iterate through the rows in the result set
 					 while (rs.next()) 
 					 { 
-						 String FundID = Integer.toString(rs.getInt("FundID")); 
-						 String ProductId = rs.getString("ProductId"); 
-						 String ProductName = rs.getString("ProductName"); 
+						 String ID = Integer.toString(rs.getInt("ID")); 
 						 String FName = rs.getString("FName"); 
-						 String Amount = rs.getString("Amount"); 
+						 String Address = rs.getString("Address"); 
+						 String Email = rs.getString("Email"); 
+						 String Phone = rs.getString("Phone"); 
 						 
 						 // Add into the html table
-						 output += "<tr><td>" + ProductId + "</td>"; 
-						 output += "<td>" + ProductName + "</td>"; 
-						 output += "<td>" + FName + "</td>"; 
-						 output += "<td>" + Amount + "</td>"; 
+						 output += "<tr><td>" + FName + "</td>"; 
+						 output += "<td>" + Address + "</td>"; 
+						 output += "<td>" + Email + "</td>"; 
+						 output += "<td>" + Phone + "</td>"; 
 						 
 						 // buttons
 						 output += "<td><input name='btnUpdate' type='button' value='Update' class='btn btn-secondary'></td>"
 								 	+ "<td><form method='post' action='funds.jsp'>"
 								 	+ "<input name='btnRemove' type='submit' value='Remove' class='btn btn-danger'>"
-								 	+ "<input name='FundID' type='hidden' value='" + FundID 
+								 	+ "<input name='ID' type='hidden' value='" + ID 
 								 	+ "'>" + "</form></td></tr>"; 
 				      } 
 					 
@@ -120,7 +120,7 @@ public class Funds {
 				 return output; 
 				 
 			} 
-			public String updateFunds(String FID, String proID, String ProName, String FName, String amount)
+			public String updateFundingBody(String ID, String FName, String address, String email, String phone)
 			{ 
 				 String output = ""; 
 				 
@@ -132,17 +132,16 @@ public class Funds {
 					 {return "Error while connecting to the database for updating."; } 
 					 
 					 // create a prepared statement
-					 String query = "UPDATE funds SET ProductId=?,ProductName=?,FName=?,Amount=? WHERE FundID=?"; 
+					 String query = "UPDATE funding_body SET FName=?,Address=?,Email=?,Phone=? WHERE ID=?"; 
 					 
 					 PreparedStatement preparedStmt = con.prepareStatement(query); 
 					 
 					 // binding values
-					 preparedStmt.setString(1, proID); 
-					 preparedStmt.setString(2, ProName); 
-					 preparedStmt.setString(3, FName); 
-					 preparedStmt.setString(4, amount); 
-					 //preparedStmt.setDouble(4, Double.parseDouble(amount)); 
-					 preparedStmt.setInt(5, Integer.parseInt(FID)); 
+					 preparedStmt.setString(1, FName); 
+					 preparedStmt.setString(2, address); 
+					 preparedStmt.setString(3, email); 
+					 preparedStmt.setString(4, phone); 
+					 preparedStmt.setInt(5, Integer.parseInt(ID)); 
 					 
 					 // execute the statement
 					 preparedStmt.execute(); 
@@ -152,13 +151,13 @@ public class Funds {
 				 } 
 				 catch (Exception e) 
 				 { 
-					 output = "Error while updating the funds."; 
+					 output = "Error while updating the funding body."; 
 					 System.err.println(e.getMessage()); 
 				 } 
 				 
 				 return output; 
 			} 
-			public String deleteFunds(String FundID) 
+			public String deleteFundingBody(String ID) 
 			{ 
 				 String output = ""; 
 				 try
@@ -169,11 +168,11 @@ public class Funds {
 					 {return "Error while connecting to the database for deleting."; } 
 					 
 					 // create a prepared statement
-					 String query = "delete from funds where FundID=?"; 
+					 String query = "delete from funding_body where ID=?"; 
 					 PreparedStatement preparedStmt = con.prepareStatement(query); 
 					 
 					 // binding values
-					 preparedStmt.setInt(1, Integer.parseInt(FundID)); 
+					 preparedStmt.setInt(1, Integer.parseInt(ID)); 
 					 
 					 // execute the statement
 					 preparedStmt.execute(); 
@@ -182,7 +181,7 @@ public class Funds {
 				 } 
 				 catch (Exception e) 
 				 { 
-					 output = "Error while deleting the Funds."; 
+					 output = "Error while deleting the Fundinf body"; 
 					 System.err.println(e.getMessage()); 
 				 } 
 				 return output; 

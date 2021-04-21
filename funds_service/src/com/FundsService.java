@@ -50,10 +50,10 @@ public class FundsService {
 	 JsonObject fundsObject = new JsonParser().parse(fundData).getAsJsonObject(); 
 	//Read the values from the JSON object
 	 String fundID = fundsObject.get("FundID").getAsString(); 
-	 String productId = fundsObject.get("productId").getAsString(); 
-	 String productName = fundsObject.get("productName").getAsString(); 
+	 String productId = fundsObject.get("ProductId").getAsString(); 
+	 String productName = fundsObject.get("ProductName").getAsString(); 
 	 String fName = fundsObject.get("FName").getAsString(); 
-	 String amount = fundsObject.get("amount").getAsString(); 
+	 String amount = fundsObject.get("Amount").getAsString(); 
 	 String output = fundsObj.updateFunds(fundID, productId, productName, fName, amount); 
 	return output; 
 	}
