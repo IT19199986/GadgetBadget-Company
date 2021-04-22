@@ -74,7 +74,7 @@ public class Funds {
 					 {return "Error while connecting to the database for reading."; } 
 					 
 					 // Prepare the html table to be displayed
-					 output = "<table border='1'><tr><th>Product Id</th><th>Product Name</th>" +
+					 output = "<table border='1'><tr><th>Product ID</th><th>Product Name</th>" +
 							  "<th>Funder's Name</th>" + 
 							  "<th>Amount</th>" +
 							  "<th>Update</th><th>Remove</th></tr>"; 
