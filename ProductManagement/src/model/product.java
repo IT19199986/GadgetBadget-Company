@@ -132,12 +132,12 @@ public class product {
 	         PreparedStatement preparedStmt = con.prepareStatement(query); 
 	         // binding values
              preparedStmt.setString(1, product_ID); 
-		     preparedStmt.setString(1, product_Name); 
-		     preparedStmt.setString(2, Category); 
-		     preparedStmt.setString(3, Serial_No); 
-		     preparedStmt.setDouble(4, Double.parseDouble(Price)); 
-		     preparedStmt.setString(5, Description); 
-		     preparedStmt.setInt(6, Integer.parseInt(product_ID));
+		     preparedStmt.setString(2, product_Name); 
+		     preparedStmt.setString(3, Category); 
+		     preparedStmt.setString(4, Serial_No); 
+		     preparedStmt.setDouble(5, Double.parseDouble(Price)); 
+		     preparedStmt.setString(6, Description); 
+		     preparedStmt.setInt(7, Integer.parseInt(product_ID));
 		     
 	         // execute the statement
 	         preparedStmt.execute(); 
