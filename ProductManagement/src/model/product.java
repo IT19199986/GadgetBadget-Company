@@ -164,7 +164,7 @@ public class product {
 	    	         return "Error while connecting to the database for deleting."; 
 	    	  } 
 	          // create a prepared statement
-	          String query = "delete from items where product_ID=?"; 
+	          String query = "delete from product where product_ID=?"; 
 	          PreparedStatement preparedStmt = con.prepareStatement(query); 
 	          // binding values
 	          preparedStmt.setString(1, product_ID); 

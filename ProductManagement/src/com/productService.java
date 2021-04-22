@@ -4,10 +4,13 @@ package com;
 import javax.ws.rs.*; 
 import javax.ws.rs.core.MediaType; 
 //For JSON
-import com.google.gson.*; 
+//import com.google.gson.*; 
 //For XML
 import org.jsoup.*; 
-import org.jsoup.parser.*; 
+import org.jsoup.parser.*;
+
+import com.google.gson.*;
+
 import org.jsoup.nodes.Document;
 
 import model.product;
@@ -45,7 +48,9 @@ public class productService {
 	public String updateproduct(String productData) 
 	{ 
 	    //Convert the input string to a JSON object 
-		JsonObject productObject = new JsonParser().parse(productData).getAsJsonObject(); 
+		JsonObject productObject = new JsonParser().parse(productData).getAsJsonObject();
+		
+		
 	    //Read the values from the JSON object
 	    String product_ID = productObject.get("product_ID").getAsString(); 
 	    String product_Name = productObject.get("product_Name").getAsString(); 
@@ -53,6 +58,7 @@ public class productService {
 	    String Serial_No = productObject.get("Serial_No").getAsString(); 
 	    String Price = productObject.get("Price").getAsString(); 
 	    String Description = productObject.get("Description").getAsString(); 
+	    
 	    String output = productObj.updateproduct(product_ID,product_Name,Category,Serial_No,Price,Description); 
 	    return output; 
 	}
