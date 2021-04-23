@@ -9,7 +9,7 @@ public class Pay {
 	 Connection con = null; 
 	 try
 	 { 
-		 Class.forName("com.mysql.jdbc.Driver"); 
+		 Class.forName("com.mysql.jdbc.Dr"); 
 		 //Provide the correct details: DBServer/DBName, username, password 
 		 con = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/pafcus", "root", ""); 
 	 } 
