@@ -34,7 +34,7 @@ public String insertProject(String pName, String pSubject, String pPrice, String
  preparedStmt.setString(3, pSubject); 
  preparedStmt.setDouble(4, Double.parseDouble(pPrice)); 
  preparedStmt.setString(5, pDesc); 
-// execute the statement3
+// execute the statement
  preparedStmt.execute(); 
  con.close(); 
  output = "Inserted successfully"; 
