@@ -25,12 +25,12 @@ public class ProjectService
  @Path("/") 
  @Consumes(MediaType.APPLICATION_FORM_URLENCODED) 
  @Produces(MediaType.TEXT_PLAIN) 
- public String insertProject(@FormParam("pName") String pName, 
-  @FormParam("pSubject") String pSubject, 
-  @FormParam("pPrice") String pPrice, 
-  @FormParam("pDesc") String pDesc       ) 
+ public String insertProject(@FormParam("projName") String projName, 
+  @FormParam("projSubject") String projSubject, 
+  @FormParam("projPrice") String projPrice, 
+  @FormParam("projDesc") String projDesc       ) 
  { 
-  String output = projectObj.insertProject(pName, pSubject, pPrice, pDesc); 
+  String output = projectObj.insertProject(projName, projSubject, projPrice, projDesc); 
  return output; 
  }
  @PUT
@@ -42,12 +42,12 @@ public class ProjectService
  //Convert the input string to a JSON object 
   JsonObject projectObject = new JsonParser().parse(projectData).getAsJsonObject(); 
  //Read the values from the JSON object
-  String pID = projectObject.get("pID").getAsString(); 
-  String pName = projectObject.get("pName").getAsString(); 
-  String pSubject = projectObject.get("pSubject").getAsString(); 
-  String pPrice = projectObject.get("pPrice").getAsString(); 
-  String pDesc = projectObject.get("pDesc").getAsString(); 
-  String output = projectObj.updateProject(pID,pName, pSubject, pPrice, pDesc); 
+  String projID = projectObject.get("projID").getAsString(); 
+  String projName = projectObject.get("projName").getAsString(); 
+  String projSubject = projectObject.get("projSubject").getAsString(); 
+  String projPrice = projectObject.get("projPrice").getAsString(); 
+  String projDesc = projectObject.get("projDesc").getAsString(); 
+  String output = projectObj.updateProject(projID,projName, projSubject, projPrice, projDesc); 
  return output; 
  }
  @DELETE
@@ -60,7 +60,7 @@ public class ProjectService
   Document doc = Jsoup.parse(projectData, "", Parser.xmlParser()); 
   
  //Read the value from the element <projectID>
-  String pID = doc.select("pID").text(); 
+  String pID = doc.select("projID").text(); 
   String output = projectObj.deleteProject(pID); 
  return output; 
  }

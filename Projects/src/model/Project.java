@@ -16,7 +16,7 @@ private Connection connect()
  {e.printStackTrace();} 
  return con; 
  } 
-public String insertProject(String pName, String pSubject, String pPrice, String pDesc) 
+public String insertProject(String projName, String projSubject, String projPrice, String projDesc) 
  { 
  String output = ""; 
  try
@@ -25,15 +25,15 @@ public String insertProject(String pName, String pSubject, String pPrice, String
  if (con == null) 
  {return "Error while connecting to the database for inserting."; } 
  // create a prepared statement
- String query = " insert into Project(`pID`,`pName`,`pSubject`,`pPrice`,`pDesc`)"
+ String query = " insert into Project(`projID`,`projName`,`projSubject`,`projPrice`,`projDesc`)"
  + " values (?, ?, ?, ?, ?)"; 
  PreparedStatement preparedStmt = con.prepareStatement(query); 
  // binding values
  preparedStmt.setInt(1, 0); 
- preparedStmt.setString(2, pName); 
- preparedStmt.setString(3, pSubject); 
- preparedStmt.setDouble(4, Double.parseDouble(pPrice)); 
- preparedStmt.setString(5, pDesc); 
+ preparedStmt.setString(2, projName); 
+ preparedStmt.setString(3, projSubject); 
+ preparedStmt.setDouble(4, Double.parseDouble(projPrice)); 
+ preparedStmt.setString(5, projDesc); 
 // execute the statement
  preparedStmt.execute(); 
  con.close(); 
@@ -55,7 +55,7 @@ public String readProject()
  if (con == null) 
  {return "Error while connecting to the database for reading."; } 
  // Prepare the html table to be displayed
- output = "<table border='1'><tr><th>Project Name</th><th>Project Subject</th>" +
+ output = "<table border='1'><tr><th>Project ID</th><th>Project Name</th><th>Project Subject</th>" +
  "<th>Project Price</th>" + 
  "<th>Project Description</th>" +
  "<th>Update</th><th>Remove</th></tr>"; 
@@ -66,21 +66,22 @@ public String readProject()
  // iterate through the rows in the result set
  while (rs.next()) 
  { 
- String pID = Integer.toString(rs.getInt("pID")); 
- String pName = rs.getString("pName"); 
- String pSubject = rs.getString("pSubject"); 
- String pPrice = Double.toString(rs.getDouble("pPrice")); 
- String pDesc = rs.getString("pDesc"); 
+ String projID = Integer.toString(rs.getInt("projID")); 
+ String projName = rs.getString("projName"); 
+ String projSubject = rs.getString("projSubject"); 
+ String projPrice = Double.toString(rs.getDouble("projPrice")); 
+ String projDesc = rs.getString("projDesc"); 
  // Add into the html table
- output += "<tr><td>" +  pName + "</td>"; 
- output += "<td>" + pSubject + "</td>"; 
- output += "<td>" + pPrice + "</td>"; 
- output += "<td>" + pDesc + "</td>"; 
+ output += "<tr><td>" +  projID + "</td>"; 
+ output += "<td>" +  projName + "</td>"; 
+ output += "<td>" + projSubject + "</td>"; 
+ output += "<td>" + projPrice + "</td>"; 
+ output += "<td>" + projDesc + "</td>"; 
  // buttons
  output += "<td><input name='btnUpdate' type='button' value='Update'class='btn btn-secondary'></td>"
  + "<td><form method='post' action='items.jsp'>"
  + "<input name='btnRemove' type='submit' value='Remove' class='btn btn-danger'>"
- + "<input name='pID' type='hidden' value='" + pID + "'>" + "</form></td></tr>"; 
+ + "<input name='projID' type='hidden' value='" + projID + "'>" + "</form></td></tr>"; 
  } 
  con.close(); 
  // Complete the html table
@@ -93,7 +94,7 @@ public String readProject()
  } 
  return output; 
  } 
-public String updateProject(String pID, String pName, String pSubject, String pPrice, String pDesc)
+public String updateProject(String projID, String projName, String projSubject, String projPrice, String projDesc)
  { 
  String output = ""; 
  try
@@ -102,14 +103,14 @@ public String updateProject(String pID, String pName, String pSubject, String pP
  if (con == null) 
  {return "Error while connecting to the database for updating."; } 
  // create a prepared statement
- String query = "UPDATE project SET pName=?,pSubject=?,pPrice=?,pDesc=? WHERE pID=?"; 
+ String query = "UPDATE project SET projName=?,projSubject=?,projPrice=?,projDesc=? WHERE projID=?"; 
  PreparedStatement preparedStmt = con.prepareStatement(query); 
  // binding values
- preparedStmt.setString(1, pName); 
- preparedStmt.setString(2, pSubject); 
- preparedStmt.setDouble(3, Double.parseDouble(pPrice)); 
- preparedStmt.setString(4, pDesc); 
- preparedStmt.setInt(5, Integer.parseInt(pID)); 
+ preparedStmt.setString(1, projName); 
+ preparedStmt.setString(2, projSubject); 
+ preparedStmt.setDouble(3, Double.parseDouble(projPrice)); 
+ preparedStmt.setString(4, projDesc); 
+ preparedStmt.setInt(5, Integer.parseInt(projID)); 
  // execute the statement
  preparedStmt.execute(); 
  con.close(); 
@@ -131,7 +132,7 @@ public String deleteProject(String pID)
  if (con == null) 
  {return "Error while connecting to the database for deleting."; } 
  // create a prepared statement
- String query = "delete from project where pID=?"; 
+ String query = "delete from project where projID=?"; 
  PreparedStatement preparedStmt = con.prepareStatement(query); 
  // binding values
  preparedStmt.setInt(1, Integer.parseInt(pID)); 
